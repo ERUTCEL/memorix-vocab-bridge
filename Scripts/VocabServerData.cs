@@ -166,3 +166,111 @@ public class UploadCsvResponse
     public int predicted;
     public int api_verified;
 }
+
+// ── 세션 체크포인트 ───────────────────────────────────────────
+
+[Serializable]
+public class SessionCheckpointRequest
+{
+    public List<SessionAnswer> answers;
+    public List<string> remaining_words;
+}
+
+[Serializable]
+public class SessionCheckpointResponse
+{
+    public float accuracy;
+    public int user_rating;
+    public int updated_user_rating;
+    public string mode;             // "hard" | "normal" | "easy"
+    public List<string> remaining_words;
+}
+
+// ── CAT 온보딩 ────────────────────────────────────────────────
+
+[Serializable]
+public class CatAnswerRequest
+{
+    public string word;
+    public bool correct;
+    public int response_time_ms;
+}
+
+[Serializable]
+public class CatResponse
+{
+    public bool finished;
+    public string word;
+    public int estimated_rating;
+    public int user_rating;
+}
+
+// ── 단어 추천 ─────────────────────────────────────────────────
+
+[Serializable]
+public class RecommendedWord
+{
+    public string word;
+    public int rating;
+    public string pos;
+}
+
+[Serializable]
+public class RecommendWordsResponse
+{
+    public int user_rating;
+    public int weak_center;
+    public int count;
+    public List<RecommendedWord> words;
+}
+
+[Serializable]
+public class AiRecommendedWord
+{
+    public string word;
+    public int rating;
+    public string reason;
+    public string cefr;
+}
+
+[Serializable]
+public class AiRecommendResponse
+{
+    public int added_count;
+    public List<AiRecommendedWord> words;
+}
+
+// ── 학습 플랜 ─────────────────────────────────────────────────
+
+[Serializable]
+public class StudyPlan
+{
+    public string start_date;
+    public List<int> daily_plan;
+    public bool confirmed;
+}
+
+[Serializable]
+public class UserProfileFull
+{
+    public string user_id;
+    public int user_rating;
+    public List<int> rating_history;
+    public int k_factor;
+    public int total_sessions;
+    public bool onboarding_completed;
+    public string created_at;
+    public string last_updated;
+    public StudyPlan study_plan;
+}
+
+[Serializable]
+public class ScheduleRecommendResponse
+{
+    public int recommended_days;
+    public int recommended_daily_limit;
+    public List<int> daily_plan;
+    public string reason;
+    public int total_words;
+    public int user_rating;
+}
